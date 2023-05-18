@@ -72,6 +72,8 @@ class _BottomModalFormState extends State<BottomModalForm> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
+  Category category = Category.leisure;
+
   DateTime? dateTime;
 
   void _showDatePicker() async {
@@ -94,7 +96,7 @@ class _BottomModalFormState extends State<BottomModalForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -121,8 +123,9 @@ class _BottomModalFormState extends State<BottomModalForm> {
                 width: 16,
               ),
               Row(children: [
-                 Text(
-                    dateTime == null ? "No Select Dated" : formatter.format(dateTime!)),
+                Text(dateTime == null
+                    ? "No Select Dated"
+                    : formatter.format(dateTime!)),
                 IconButton(
                     onPressed: () {
                       _showDatePicker();
@@ -130,18 +133,34 @@ class _BottomModalFormState extends State<BottomModalForm> {
                     icon: const Icon(Icons.date_range)),
               ]),
             ]),
-            TextButton(
-              child: Text("Submit"),
-              onPressed: () {
-                print(titleController.text);
-              },
+            Row(
+              children: [
+                DropdownButton(
+                    value: category,
+                    items: Category.values
+                        .map((e) =>
+                            DropdownMenuItem(value: e, child: Text(e.name)))
+                        .toList(),
+                    onChanged: (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      setState(() {
+                        category = value;
+                      });
+                    }),
+                TextButton(
+                  child: Text("Submit"),
+                  onPressed: () {},
+                ),
+                TextButton(
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
             ),
-            TextButton(
-              child: Text("Cancel"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
           ],
         ),
       ),
