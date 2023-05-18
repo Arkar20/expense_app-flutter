@@ -17,7 +17,7 @@ class ExpenseList extends StatelessWidget {
         return ExpenseCard(
             title: expenses[index].title,
             amount:'\$ ${expenses[index].amount.toStringAsFixed(2)}',
-            date: expenses[index].date.toIso8601String()
+            date: expenses[index].formattedDate
             );
       },
     );

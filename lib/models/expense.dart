@@ -1,6 +1,8 @@
 import "package:expense_app/models/category.dart";
+import "package:intl/intl.dart";
 import "package:uuid/uuid.dart";
 
+  var formatter= DateFormat.yMd();
   var uuid = Uuid();
 
 class Expense {
@@ -16,4 +18,8 @@ class Expense {
       required this.date,
       required this.category})
       : id = uuid.v4();
+
+    String get formattedDate{
+      return formatter.format(date);
+    }
 }
