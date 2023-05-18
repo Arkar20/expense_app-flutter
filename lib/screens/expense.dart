@@ -22,6 +22,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+        title: const Text("Expense App"),
+        actions:  [
+        IconButton(onPressed: (){
+
+        }, icon: const Icon(Icons.add))
+        ],
+      ),
       body: Column(children: [
         const Text("hello chart"),
          Expanded(child: ExpenseList(expenses: expenses))
