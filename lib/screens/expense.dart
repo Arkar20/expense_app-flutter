@@ -1,5 +1,6 @@
 import 'package:expense_app/models/category.dart';
 import 'package:expense_app/models/expense.dart';
+import 'package:expense_app/components/ExpenseList.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseScreen extends StatefulWidget {
@@ -20,9 +21,11 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: ListView.builder(itemCount: expenses.length, itemBuilder:(context, index) {
-          return Text(expenses[index].title);
-      }, )
+      body: Column(children: [
+        Text("hello chart"),
+         Expanded(child: ExpenseList(expenses: expenses))
+      ])
     );
   }
 }
+
