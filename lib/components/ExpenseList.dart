@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:expense_app/models/expense.dart';
+import 'package:expense_app/models/category.dart';
+
+const categoryIcons= {
+  Category.leisure:Icons.dining,
+  Category.sport:Icons.bike_scooter,
+  Category.travel:Icons.air,
+  Category.work:Icons.work
+};
 
 class ExpenseList extends StatelessWidget {
   const ExpenseList({
@@ -17,7 +25,8 @@ class ExpenseList extends StatelessWidget {
         return ExpenseCard(
             title: expenses[index].title,
             amount:'\$ ${expenses[index].amount.toStringAsFixed(2)}',
-            date: expenses[index].formattedDate
+            date: expenses[index].formattedDate,
+            category: expenses[index].category,
             );
       },
     );
@@ -30,11 +39,13 @@ class ExpenseCard extends StatelessWidget {
     required this.title,
     required this.amount,
     required this.date,
+    required this.category,
   });
 
  final String title;
  final String amount;
  final String date;
+ final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +63,7 @@ class ExpenseCard extends StatelessWidget {
                   Text(amount),
                   Row(
                     children: [
-                      const Icon(Icons.abc_outlined),
+                       Icon(categoryIcons[category]),
                      const SizedBox(width: 10,),
                       Text(date)
                     ],

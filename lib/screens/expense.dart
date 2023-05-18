@@ -3,6 +3,7 @@ import 'package:expense_app/models/expense.dart';
 import 'package:expense_app/components/ExpenseList.dart';
 import 'package:flutter/material.dart';
 
+
 class ExpenseScreen extends StatefulWidget {
   const ExpenseScreen({super.key});
 
@@ -22,7 +23,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Column(children: [
-        Text("hello chart"),
+        const Text("hello chart"),
          Expanded(child: ExpenseList(expenses: expenses))
       ])
     );
