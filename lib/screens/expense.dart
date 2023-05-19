@@ -1,3 +1,4 @@
+import 'package:expense_app/components/chart/LineChart.dart';
 import 'package:expense_app/models/category.dart';
 import 'package:expense_app/models/expense.dart';
 import 'package:expense_app/components/ExpenseList.dart';
@@ -85,7 +86,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         body: expenses.isEmpty
             ? Center(child: Text("No Expenses Available"))
             : Column(children: [
-                const Text("hello chart"),
+                Center(child: LineChart(expenses: expenses)),
                 Expanded(
                     child: ExpenseList(
                         expenses: expenses, removeExpense: removeExpense))

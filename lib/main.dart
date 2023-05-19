@@ -4,26 +4,27 @@ import 'package:flutter/material.dart';
 var kcolorSchema =
     ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 17, 99, 4));
 
-var kcolorDarkSchema =
-    ColorScheme.fromSeed(
-      brightness: Brightness.dark,
-      seedColor: Color.fromARGB(255, 2, 69, 20));
+var kcolorDarkSchema = ColorScheme.fromSeed(
+    brightness: Brightness.dark, seedColor: Color.fromARGB(255, 2, 69, 20));
 void main() {
   runApp(MaterialApp(
       themeMode: ThemeMode.system,
-      darkTheme: ThemeData.dark()
-          .copyWith(useMaterial3: true, 
+      darkTheme: ThemeData.dark().copyWith(
+          useMaterial3: true,
           colorScheme: kcolorDarkSchema,
-            cardTheme: const CardTheme().copyWith(
+          cardTheme: const CardTheme().copyWith(
               color: kcolorDarkSchema.secondaryContainer,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
-               elevatedButtonTheme: ElevatedButtonThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: kcolorDarkSchema.secondaryContainer,
-                  foregroundColor: kcolorDarkSchema.onSecondaryContainer,
-                  )),
-          ),
-          
+            backgroundColor: kcolorDarkSchema.secondaryContainer,
+            foregroundColor: kcolorDarkSchema.onSecondaryContainer,
+          )),
+          textTheme: const TextTheme(
+            titleLarge: TextStyle(
+                fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+            bodySmall: TextStyle(fontSize: 12, color: Colors.white),
+          )),
       theme: ThemeData().copyWith(
           useMaterial3: true,
           colorScheme: kcolorSchema,
@@ -36,12 +37,13 @@ void main() {
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: kcolorSchema.primaryContainer,
-                  foregroundColor: kcolorSchema.onPrimaryContainer,
-                  )),
+            backgroundColor: kcolorSchema.primaryContainer,
+            foregroundColor: kcolorSchema.onPrimaryContainer,
+          )),
           textTheme: const TextTheme(
-              titleLarge: TextStyle(
-                  fontWeight: FontWeight.w500, fontStyle: FontStyle.italic))),
-          
+            titleLarge: TextStyle(
+                fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+            bodySmall: TextStyle(fontSize: 12, color: Colors.white),
+          )),
       home: ExpenseScreen()));
 }
