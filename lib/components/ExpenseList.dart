@@ -65,7 +65,10 @@ class ExpenseCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title),
+              Text(title,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -73,7 +76,7 @@ class ExpenseCard extends StatelessWidget {
                   Row(
                     children: [
                        Icon(categoryIcons[category]),
-                     const SizedBox(width: 10,),
+                     const SizedBox(width: 8,),
                       Text(date)
                     ],
                   )
