@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:expense_app/models/expense.dart';
 import 'package:expense_app/models/category.dart';
 
-const categoryIcons= {
-  Category.leisure:Icons.dining,
-  Category.sport:Icons.bike_scooter,
-  Category.travel:Icons.air,
-  Category.work:Icons.work
-};
+
 
 class ExpenseList extends StatelessWidget {
   const ExpenseList({
