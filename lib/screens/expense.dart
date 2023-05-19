@@ -35,8 +35,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         category: Category.sport),
   ];
 
+  void addNewExpense(Expense data) {
+    setState(() {
+      expenses.add(data);
+    });
+  }
+
   void showBottomModal() {
-    showModalBottomSheet(context: context, builder: (ctx) => BottomModalForm());
+    showModalBottomSheet(context: context, builder: (ctx) => BottomModalForm(addNewExpense:addNewExpense));
   }
 
   @override
@@ -62,8 +68,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 class BottomModalForm extends StatefulWidget {
   const BottomModalForm({
     super.key,
+    required this.addNewExpense
   });
 
+  final void Function(Expense) addNewExpense;
   @override
   State<BottomModalForm> createState() => _BottomModalFormState();
 }
@@ -97,27 +105,30 @@ class _BottomModalFormState extends State<BottomModalForm> {
   void handleSubmit() {
     final amount = double.tryParse(amountController.text);
 
-    print(amount);
-
     if (titleController.text.trim().isEmpty || amount == null || amount <= 0) {
-      print("inputs are invalid");
+      
       showDialog(
           context: context,
-          builder: (ctx) =>   AlertDialog(
-            title:  const  Text("Invalid Input"),
-            content: const Text("Make Sure All Inputs Are valid"),
-            actions: [
-              IconButton(onPressed: (){
-                Navigator.pop(ctx);
-              }, icon:const Icon(Icons.close))
-            ],
-            )
-            
-            );
+          builder: (ctx) => AlertDialog(
+                title: const Text("Invalid Input"),
+                content: const Text("Make Sure All Inputs Are valid"),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                      },
+                      icon: const Icon(Icons.close))
+                ],
+              ));
       return;
     }
+    final newExpense = Expense(
+        title: titleController.text,
+        amount: amount,
+        date: dateTime!,
+        category: category);
 
-    print('Validated');
+    widget.addNewExpense(newExpense);
   }
 
   @override
@@ -125,7 +136,7 @@ class _BottomModalFormState extends State<BottomModalForm> {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Column(
           children: [
             TextField(
