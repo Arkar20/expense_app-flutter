@@ -42,9 +42,24 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   }
 
   void removeExpense(Expense data) {
+    final expenseIndex = expenses.indexOf(data);
     setState(() {
       expenses.remove(data);
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 3),
+        content: const Text("Deleted"),
+        action: SnackBarAction(
+            label: "Undo",
+            onPressed: () {
+              setState(() {
+                expenses.insert(expenseIndex, data);
+              });
+            }),
+      ),
+    );
   }
 
   void showBottomModal() {
@@ -67,10 +82,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 icon: const Icon(Icons.add))
           ],
         ),
-        body: Column(children: [
-          const Text("hello chart"),
-          Expanded(child: ExpenseList(expenses: expenses,removeExpense:removeExpense))
-        ]));
+        body: expenses.isEmpty
+            ? Center(child: Text("No Expenses Available"))
+            : Column(children: [
+                const Text("hello chart"),
+                Expanded(
+                    child: ExpenseList(
+                        expenses: expenses, removeExpense: removeExpense))
+              ]));
   }
 }
 
@@ -111,7 +130,10 @@ class _BottomModalFormState extends State<BottomModalForm> {
   void handleSubmit() {
     final amount = double.tryParse(amountController.text);
 
-    if (titleController.text.trim().isEmpty || amount == null || amount <= 0 ||  dateTime == null) {
+    if (titleController.text.trim().isEmpty ||
+        amount == null ||
+        amount <= 0 ||
+        dateTime == null) {
       showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
