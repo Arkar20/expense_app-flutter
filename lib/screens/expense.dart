@@ -94,6 +94,32 @@ class _BottomModalFormState extends State<BottomModalForm> {
     );
   }
 
+  void handleSubmit() {
+    final amount = double.tryParse(amountController.text);
+
+    print(amount);
+
+    if (titleController.text.trim().isEmpty || amount == null || amount <= 0) {
+      print("inputs are invalid");
+      showDialog(
+          context: context,
+          builder: (ctx) =>   AlertDialog(
+            title:  const  Text("Invalid Input"),
+            content: const Text("Make Sure All Inputs Are valid"),
+            actions: [
+              IconButton(onPressed: (){
+                Navigator.pop(ctx);
+              }, icon:const Icon(Icons.close))
+            ],
+            )
+            
+            );
+      return;
+    }
+
+    print('Validated');
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -151,7 +177,7 @@ class _BottomModalFormState extends State<BottomModalForm> {
                     }),
                 TextButton(
                   child: Text("Submit"),
-                  onPressed: () {},
+                  onPressed: handleSubmit,
                 ),
                 TextButton(
                   child: Text("Cancel"),
