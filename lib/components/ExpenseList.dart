@@ -13,21 +13,30 @@ class ExpenseList extends StatelessWidget {
   const ExpenseList({
     super.key,
     required this.expenses,
+    required this.removeExpense,
   });
 
   final List<Expense> expenses;
+  final void Function(Expense) removeExpense;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: expenses.length,
       itemBuilder: (context, index) {
-        return ExpenseCard(
-            title: expenses[index].title,
-            amount:'\$ ${expenses[index].amount.toStringAsFixed(2)}',
-            date: expenses[index].formattedDate,
-            category: expenses[index].category,
-            );
+        return Dismissible(
+          key: ValueKey(expenses[index]),
+          direction: DismissDirection.endToStart,
+          onDismissed: (direction){
+            removeExpense(expenses[index]);
+          },
+          child: ExpenseCard(
+              title: expenses[index].title,
+              amount:'\$ ${expenses[index].amount.toStringAsFixed(2)}',
+              date: expenses[index].formattedDate,
+              category: expenses[index].category,
+              ),
+        );
       },
     );
   }
