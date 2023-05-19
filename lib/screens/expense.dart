@@ -215,6 +215,7 @@ class _BottomModalFormState extends State<BottomModalForm> {
                         category = value;
                       });
                     }),
+                    const Spacer(),
                 ElevatedButton(
                   child: Text("Submit"),
                   onPressed: handleSubmit,

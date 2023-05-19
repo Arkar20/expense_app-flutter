@@ -28,7 +28,7 @@ class ExpenseList extends StatelessWidget {
           key: ValueKey(expenses[index]),
           direction: DismissDirection.endToStart,
           background:  Container(
-            color: Theme.of(context).colorScheme.error,
+            color: Theme.of(context).colorScheme.error.withOpacity(0.4),
             margin: Theme.of(context).cardTheme.margin,
             child:const Center(
               child: Icon(Icons.delete),
