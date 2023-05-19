@@ -42,7 +42,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   }
 
   void showBottomModal() {
-    showModalBottomSheet(context: context, builder: (ctx) => BottomModalForm(addNewExpense:addNewExpense));
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => BottomModalForm(addNewExpense: addNewExpense));
   }
 
   @override
@@ -66,10 +69,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 }
 
 class BottomModalForm extends StatefulWidget {
-  const BottomModalForm({
-    super.key,
-    required this.addNewExpense
-  });
+  const BottomModalForm({super.key, required this.addNewExpense});
 
   final void Function(Expense) addNewExpense;
   @override
@@ -105,8 +105,7 @@ class _BottomModalFormState extends State<BottomModalForm> {
   void handleSubmit() {
     final amount = double.tryParse(amountController.text);
 
-    if (titleController.text.trim().isEmpty || amount == null || amount <= 0) {
-      
+    if (titleController.text.trim().isEmpty || amount == null || amount <= 0 ||  dateTime == null) {
       showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
@@ -129,6 +128,8 @@ class _BottomModalFormState extends State<BottomModalForm> {
         category: category);
 
     widget.addNewExpense(newExpense);
+
+    Navigator.pop(context);
   }
 
   @override
@@ -136,7 +137,7 @@ class _BottomModalFormState extends State<BottomModalForm> {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Column(
           children: [
             TextField(
